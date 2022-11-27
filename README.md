@@ -1,0 +1,2 @@
+NixOS boxes for Vagrant
+=======================
