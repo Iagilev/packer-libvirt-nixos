@@ -1,6 +1,7 @@
 #!/bin/sh -eux
 
 DEBUG="${DEBUG:-false}"
+VERSION="${VERSION:-22.11}"
 
 echo "Start install ..."
 
@@ -20,6 +21,7 @@ curl -sf "$packer_http/hardware-configuration.nix" > /mnt/etc/nixos/hardware-bui
 curl -sf "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
 curl -sf "$packer_http/custom-configuration.nix" > /mnt/etc/nixos/custom-configuration.nix
 curl -sf "$packer_http/${boot_loader}" > /mnt/etc/nixos/boot-loader.nix
+sed -i "s/system.stateVersion =.*/system.stateVersion = \"${VERSION}\";/g" /mnt/etc/nixos/configuration.nix
 
 if [ "$DEBUG" == "true" ]; then
     ls -la /mnt

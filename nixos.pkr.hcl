@@ -34,7 +34,7 @@ variable "headless" {
 
 variable "version" {
   type    = string
-  default = "22.05"
+  default = "22.11"
 }
 
 variable "arch" {
@@ -107,7 +107,8 @@ build {
       scripts = fileset(".", "scripts/{00-parted,01-install,99-postinstall}.sh")
       environment_vars = [
         "DEBUG=${var.debug}",
-        "GRUB=${var.grub_loader}"
+        "GRUB=${var.grub_loader}",
+        "VERSION=${var.version}"
       ]
   }
 
