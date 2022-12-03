@@ -15,6 +15,7 @@ build: version nixos.pkr.hcl
 	-var headless="${HEADLESS}" \
 	-var machine_type="${MACHINE_TYPE}" \
 	-var debug="${DEBUG}" \
+	-var grub_loader="${GRUB}" \
 	--only=${BUILDER} \
 	nixos.pkr.hcl
 

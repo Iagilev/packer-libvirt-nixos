@@ -10,24 +10,8 @@
       ./hardware-configuration.nix
       ./vagrant.nix
       ./custom-configuration.nix
+      ./boot-loader.nix
     ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use the GRUB 2 EFI boot loader.
-  # TODO FIX GRUB2
-  # boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # boot.loader.grub = {
-  #   enable = true;
-  #   version = 2;
-  #   device = "nodev";
-  #   efiSupport = true;
-  #   enableCryptodisk = false;
-  # };
-
 
   # remove the fsck that runs at startup. It will always fail to run, stopping
   # your boot until you press *.

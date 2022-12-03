@@ -18,18 +18,11 @@
       fsType = "ext4";
     };
 
-  # systemd-boot EFI boot loader
+  # Universal EFI BOOTloader
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
-
-  # GRUB2 EFI boot loader
-  # TODO FIX GRUB2
-  # fileSystems."/boot/efi" =
-  #   { device = "/dev/disk/by-label/boot";
-  #     fsType = "vfat";
-  #   };
 
   swapDevices = [ ];
 

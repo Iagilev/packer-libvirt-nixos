@@ -66,6 +66,11 @@ variable "debug" {
   default = "false"
 }
 
+variable "grub_loader" {
+  type    = string
+  default = "false"
+}
+
 source "qemu" "nixos-x86_64-uefi" {
   accelerator      = "kvm"
   boot_command     = [
@@ -100,7 +105,10 @@ build {
 
   provisioner "shell" {
       scripts = fileset(".", "scripts/{00-parted,01-install,99-postinstall}.sh")
-      environment_vars = ["DEBUG=${var.debug}"]
+      environment_vars = [
+        "DEBUG=${var.debug}",
+        "GRUB=${var.grub_loader}"
+      ]
   }
 
   post-processor "vagrant" {
