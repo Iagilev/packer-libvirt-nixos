@@ -23,10 +23,14 @@ if [ "$DEBUG" == "true" ]; then
 fi
 
 mkfs.fat -F 32 -n boot /dev/vda1
-mkfs.ext4 -L nixos /dev/vg/nixos
-
-mount /dev/vg/nixos /mnt
-mkdir -p /mnt/boot
+zpool create -f -R /mnt -O mountpoint=none -O compression=zstd -O atime=off -O xattr=sa -O acltype=posixacl tank /dev/vg/nixos
+zfs create -p -o mountpoint=legacy tank/safe/root
+mount -t zfs tank/safe/root /mnt
+mkdir -p /mnt/{boot,home,nix}
+zfs create -p -o mountpoint=legacy tank/safe/home
+zfs create -p -o mountpoint=legacy tank/local/nix
+mount -t zfs tank/local/nix /mnt/nix/
+mount -t zfs tank/safe/home /mnt/home/
 mount /dev/disk/by-label/boot /mnt/boot
 
 if [ "$DEBUG" == "true" ]; then

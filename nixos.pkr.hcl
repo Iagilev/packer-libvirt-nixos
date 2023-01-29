@@ -61,16 +61,6 @@ variable "machine_type" {
   default = "q35"
 }
 
-variable "debug" {
-  type    = string
-  default = "false"
-}
-
-variable "grub_loader" {
-  type    = string
-  default = "false"
-}
-
 source "qemu" "nixos-x86_64-uefi" {
   accelerator      = "kvm"
   boot_command     = [
@@ -82,7 +72,7 @@ source "qemu" "nixos-x86_64-uefi" {
   disk_compression = true
   disk_size        = var.disk_size
   format           = "qcow2"
-  http_directory   = "nixos"
+  http_directory   = null
   iso_checksum     = var.iso_checksum
   iso_url          = local.iso_url
   machine_type     = var.machine_type
@@ -107,16 +97,11 @@ build {
 
   provisioner "shell" {
       scripts = fileset(".", "scripts/{00-parted,01-install,99-postinstall}.sh")
-      environment_vars = [
-        "DEBUG=${var.debug}",
-        "GRUB=${var.grub_loader}",
-        "VERSION=${var.version}"
-      ]
   }
 
   post-processor "vagrant" {
     provider_override    = "libvirt"
     vagrantfile_template = "./Vagrantfile-uefi.template"
-    output               = "packer-nixos-${var.version}-${var.builder}-${var.arch}.box"
+    output               = "packer-nixos-unstable-${var.builder}-${var.arch}.box"
   }
 }

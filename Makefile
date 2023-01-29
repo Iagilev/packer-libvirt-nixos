@@ -4,7 +4,7 @@ ifneq (,$(wildcard ./.env))
 endif
 
 version:
-	@echo "Build for ${ARCH} architecture and using the ${VERSION} NixOS iso version"
+	@echo "Build for x86_64-linux architecture and using the unstable NixOS iso version"
 
 build: version nixos.pkr.hcl
 	@packer build \
@@ -15,13 +15,11 @@ build: version nixos.pkr.hcl
 	-var headless="${HEADLESS}" \
 	-var machine_type="${MACHINE_TYPE}" \
 	-var firmware="${FIRMWARE}" \
-	-var debug="${DEBUG}" \
-	-var grub_loader="${GRUB}" \
 	--only=${BUILDER} \
 	nixos.pkr.hcl
 
 vagrant-add:
-	@test -f packer-nixos-${VERSION}-${BUILDER}-${ARCH}.box && vagrant box add --force packer-nixos-${ARCH} packer-nixos-${VERSION}-${BUILDER}-${ARCH}.box
+	@test -f packer-nixos-unstable-${BUILDER}-${ARCH}.box && vagrant box add --force packer-nixos-${ARCH} packer-nixos-unstable-${BUILDER}-${ARCH}.box
 
 vagrant-up:
 	@vagrant up
