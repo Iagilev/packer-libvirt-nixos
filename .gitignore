@@ -1,9 +1,8 @@
 .DS_Store
 .env
-/*.box
-/.vagrant
-/storage
-/iso
-/output-nixos-x86_64-uefi
-/packer_cache
-/vendor
+*.lock
+*.iso
+*.box
+.vagrant
+/output*
+*.log

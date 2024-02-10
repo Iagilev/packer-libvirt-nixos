@@ -13,6 +13,11 @@ end
 
 node_name = "nixos"
 
+$script = <<-'SCRIPT'
+echo "These are my \"quotes\"! I am provisioning my guest."
+date > /etc/vagrant_provisioned_at
+SCRIPT
+
 Vagrant.configure("2") do |config|
   config.vm.box = "packer-nixos-x86_64"
   config.nfs.verify_installed = false
@@ -64,4 +69,5 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.synced_folder "./storage", "/vagrant", type: "nfs", nfs_version: 4, nfs_udp: false
+  config.vm.provision "shell", inline: $script
 end

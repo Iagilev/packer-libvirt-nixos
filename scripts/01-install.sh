@@ -2,6 +2,6 @@
 
 nix-env -iA nixos.git
 
-git clone https://github.com/Iagilev/nixos-config-libvirt.git /mnt/.setup
+git clone https://github.com/Iagilev/nixos-config-libvirt.git /mnt/etc/nixos
 
-cd /mnt/.setup && nixos-install --flake .#nixbox
+nixos-install --flake /mnt/etc/nixos#nixbox
