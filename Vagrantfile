@@ -33,6 +33,7 @@ Vagrant.configure("2") do |config|
       libvirt.driver = "kvm"
       libvirt.loader = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
       libvirt.machine_type = "q35"
+      libvirt.nvram = true
 
       # The name of the server, where Libvirtd is running.
       libvirt.host = "localhost"
